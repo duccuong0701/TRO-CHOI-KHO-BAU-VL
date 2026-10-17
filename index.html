@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Giải mã kho báu - Bài 10 | Thầy Nguyễn Đức Cường</title>
+<style>
+*{box-sizing:border-box}body,button,input,select{font-family:Arial,Helvetica,sans-serif!important}body{margin:0;background:radial-gradient(ellipse at top,#1b4770,#071629 75%);color:#fff;min-height:100vh}button{cursor:pointer;border:0;font-weight:700}button:disabled{opacity:.45;cursor:not-allowed}.wrap{max-width:1100px;margin:auto;padding:20px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{font-size:13px;color:#c7e4fa}.title{text-align:center;margin:20px auto 8px;font-size:clamp(26px,5vw,44px);color:#ffe08c;text-shadow:0 3px 0 #713f19}.sub{text-align:center;color:#b7d7e8}.panel{background:#102c46e8;border:1px solid #43749a;border-radius:20px;padding:22px;box-shadow:0 12px 40px #0005;margin:20px 0}.hidden{display:none!important}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.mode{background:#1d4565;border:2px solid #4a809c;border-radius:16px;color:#fff;padding:22px 14px;min-height:135px;text-align:left;font-size:19px}.mode small{display:block;font-size:13px;font-weight:400;margin-top:10px;line-height:1.5;color:#d3e8f5}.mode:hover,.mode:focus{border-color:#ffd875;background:#27597d}.primary{background:linear-gradient(#ffe995,#eab84c);color:#422c07;border-radius:12px;padding:13px 20px;font-size:16px}.secondary{background:#28587c;color:white;border:1px solid #6eabc9;border-radius:10px;padding:11px 17px}.danger{background:#7c3147;color:white;border-radius:10px;padding:11px 17px}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.muted{color:#bcd4e5}.tag{background:#235c6e;border-radius:999px;padding:7px 11px;font-size:13px}.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:15px 0}.step{padding:12px 3px;text-align:center;background:#193c56;border:1px solid #376680;border-radius:12px;font-size:13px}.step.current{background:#786029;border-color:#ffe18b}.step.done{background:#226c59}.chest{text-align:center;font-size:72px;filter:drop-shadow(0 8px 10px #0009);animation:bob 3s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-8px)}}.chart{width:100%;max-width:600px;display:block;margin:10px auto;background:#f7fbff;border-radius:14px;padding:5px}.question{font-size:21px;line-height:1.5;font-weight:700;margin:18px 0}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.answer{padding:16px 12px;background:#1c4b6c;color:white;border:2px solid #477e9d;border-radius:13px;font-size:16px;min-height:64px;text-align:left}.answer:hover{background:#29658a}.answer.correct{background:#1a7957;border-color:#9cf4ba}.answer.wrong{background:#8d3448;border-color:#f8a0ae}.feedback{padding:13px 16px;background:#1b4b58;border-left:4px solid #ffdd7a;border-radius:9px;margin-top:15px;line-height:1.55}.scoreboard{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}.team{background:#21415b;border:2px solid #3b7495;border-radius:12px;padding:10px 13px;flex:1;min-width:135px}.team.active{border-color:#ffd66c}.team strong{display:block;margin-bottom:5px}input,select{padding:12px;border-radius:9px;border:1px solid #6f9fba;background:#eef7fc;color:#163147;font-size:16px;max-width:100%;width:280px}.notice{background:#26465a;padding:13px;border-radius:10px;font-size:14px;line-height:1.55}.foot{text-align:center;color:#b4cedd;font-size:12px;margin:25px 0}.leader{background:#1c4961;padding:13px;border-radius:11px;margin:8px 0}.code{font-size:30px;letter-spacing:5px;color:#ffe189;font-weight:900}.help{line-height:1.7}.spark{font-size:70px;text-align:center}@media(max-width:560px){.answers{grid-template-columns:1fr}.steps{gap:3px}.step{font-size:10px;padding:9px 1px}.panel{padding:14px}.question{font-size:18px}}
+
+/* BẢN ĐỒ PHIÊU LƯU TƯƠNG TÁC - ARIAL */
+.adventure-map{position:relative;min-height:370px;border-radius:22px;overflow:hidden;border:3px solid #b88d43;background:radial-gradient(ellipse at 35% 25%,#397b97,#0e476b 75%);box-shadow:inset 0 0 35px #071d34,0 10px 28px #0006;margin:16px 0}
+.adventure-map:before{content:"";position:absolute;inset:0;background:repeating-radial-gradient(ellipse at 30% 60%,transparent 0 20px,#ffffff08 21px 22px);pointer-events:none}
+.map-heading{position:absolute;top:11px;left:12px;right:12px;text-align:center;z-index:2;font-size:15px;font-weight:700;color:#ffe5a4;text-shadow:0 2px 3px #000}
+.map-path{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.map-island{position:absolute;width:27%;height:35%;border-radius:47% 53% 38% 60%;background:radial-gradient(ellipse at 40% 35%,#bce38b,#75ad62 65%,#41794e 90%);box-shadow:0 8px 0 #386b57,0 11px 16px #0008;border:3px solid #d9bd78;transform:translate(-50%,-50%) rotate(-8deg);pointer-events:none}
+.map-island.i1{left:13%;top:68%;width:25%;height:38%}.map-island.i2{left:34%;top:34%;width:25%;height:37%;transform:translate(-50%,-50%) rotate(13deg)}.map-island.i3{left:53%;top:68%;width:25%;height:35%}.map-island.i4{left:75%;top:34%;width:26%;height:38%;transform:translate(-50%,-50%) rotate(12deg)}.map-island.i5{left:91%;top:71%;width:17%;height:35%}
+.map-node{position:absolute;z-index:3;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:96px;max-width:140px;padding:9px 6px;border-radius:18px;border:3px solid #e7d09c;background:#234b55ed;color:#fff;box-shadow:0 6px 12px #0007;transition:transform .2s,filter .2s;line-height:1.25}
+.map-node .emoji{font-size:34px;filter:drop-shadow(0 2px 2px #0007)}.map-node .node-name{font-size:12px}.map-node.active{background:#8a5718;border-color:#ffe07b;animation:pulse 1.6s infinite}.map-node.complete{background:#176e57;border-color:#a8e8b5}.map-node.locked{filter:grayscale(.8) brightness(.65)}.map-node:not(:disabled):hover{transform:translate(-50%,-50%) scale(1.08)}.map-node:disabled{cursor:not-allowed}
+@keyframes pulse{50%{box-shadow:0 0 0 9px #ffe38a3b,0 6px 12px #0007}}
+.map-node.n0{left:13%;top:68%}.map-node.n1{left:34%;top:34%}.map-node.n2{left:53%;top:68%}.map-node.n3{left:75%;top:34%}.map-node.n4{left:90%;top:71%}
+.map-boat{position:absolute;left:4%;top:16%;font-size:30px;transform:rotate(-18deg)}.map-compass{position:absolute;right:3%;top:14%;font-size:33px}.map-legend{text-align:center;color:#c7e2f2;font-size:13px;line-height:1.5;margin:8px 0 0}
+.challenge-area{background:#0b243a;border:1px solid #3d6a86;border-radius:15px;padding:14px;margin-top:14px}
+.map-burst{animation:rise .6s ease-out}@keyframes rise{0%{transform:translateY(15px);opacity:.3}100%{transform:translateY(0);opacity:1}}
+@media(max-width:650px){.adventure-map{min-height:440px}.map-node{min-width:72px;max-width:88px;padding:7px 2px}.map-node .emoji{font-size:27px}.map-node .node-name{font-size:10px}.map-island.i5{left:88%}.map-node.n4{left:88%}.map-node.n0{left:15%}.map-island.i1{left:15%}.map-node.n1{left:34%}.map-node.n2{left:54%}.map-node.n3{left:76%}}
+
+/* BẢN ĐỒ PHIÊU LƯU 2D: RỪNG - SÔNG - ĐỀN - HANG - KHO BÁU */
+.adventure-map{height:470px;min-height:470px;background:#77b6a4;border:5px solid #c99c4b;box-shadow:0 0 0 3px #563d27,0 15px 35px #0009;isolation:isolate}
+.adventure-map:before{display:none}
+.world-art{position:absolute;inset:0;width:100%;height:100%;display:block}
+.map-heading{top:10px;left:20%;right:20%;border-radius:50px;background:#153d4edc;padding:9px 8px;border:1px solid #f7d67d;font-size:14px}
+.map-node{min-width:112px;max-width:132px;z-index:4;background:#173d4fe8;border:3px solid #f6d07d;box-shadow:0 6px 12px #0009;backdrop-filter:blur(2px)}
+.map-node.n0{left:13%;top:58%}.map-node.n1{left:36%;top:41%}.map-node.n2{left:60%;top:38%}.map-node.n3{left:75%;top:62%}.map-node.n4{left:91%;top:74%}
+.map-node .emoji{font-size:30px}.map-node .node-name{font-size:12px;font-weight:700}
+.map-node.active{background:#936117;box-shadow:0 0 18px #fff6aa,0 6px 15px #0009}
+.map-node.complete{background:#17674a}.map-node.locked{opacity:.72;filter:grayscale(.35)}
+.treasure-status{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);white-space:nowrap;background:#163b48eb;border:1px solid #ffe1a1;border-radius:30px;padding:9px 15px;font-size:14px;font-weight:700;z-index:5;color:#fff0b6;box-shadow:0 4px 12px #0008}.treasure-status span{margin:0 10px;color:#fff}
+@media(max-width:650px){.adventure-map{height:490px;min-height:490px}.map-heading{font-size:11px;left:5%;right:5%}.map-node{min-width:67px;max-width:82px;padding:6px 3px;border-width:2px}.map-node .emoji{font-size:25px}.map-node .node-name{font-size:10px}.map-node.n0{left:13%;top:62%}.map-node.n1{left:36%;top:43%}.map-node.n2{left:59%;top:40%}.map-node.n3{left:76%;top:64%}.map-node.n4{left:89%;top:80%}.treasure-status{font-size:11px;padding:8px 10px;bottom:6px}.treasure-status span{margin:0 4px}}
+</style>
+</head>
+<body><div class="wrap">
+<header class="top"><div class="brand">🎓 HỌC LIỆU SỐ • KHOA HỌC TỰ NHIÊN 7</div><div class="tag">Thiết kế học liệu số: <b>Thầy Nguyễn Đức Cường</b></div></header>
+<h1 class="title">🗝️ GIẢI MÃ KHO BÁU 🏴‍☠️</h1>
+<div class="sub">BÀI 10 – ĐỒ THỊ QUÃNG ĐƯỜNG – THỜI GIAN<br>Sách Kết nối tri thức với cuộc sống</div>
+<section id="home" class="panel"><div class="chest">🗺️🏝️💎</div><p style="text-align:center;color:#ffdf8a">Băng qua khu rừng bí ẩn, vượt sông, giải mã đền cổ, khám phá hang động và chinh phục kho báu vàng!</p><h2 style="text-align:center">Chọn chế độ phiêu lưu</h2><div class="grid">
+<button class="mode" onclick="startSolo()">🧭 Cá nhân<small>Vượt 5 cửa ải, trả lời câu hỏi và mở kho báu.</small></button>
+<button class="mode" onclick="setupLocal()">👥 Thi đấu nhóm<small>2–4 đội chơi luân phiên trên một màn hình, cùng tranh kho báu.</small></button>
+<button class="mode" onclick="showOnline()">📱 Phòng trực tuyến<small>Mỗi nhóm một điện thoại; giáo viên tạo phòng, nhóm tham gia bằng mã.</small></button>
+</div><p class="notice">🎯 Mục tiêu: đọc và phân tích đồ thị quãng đường – thời gian; nhận biết chuyển động và đứng yên; tính tốc độ từ đồ thị. Học sinh không cần đăng nhập.</p></section>
+<section id="localSetup" class="panel hidden"><h2>👥 Thiết lập đội thi</h2><label>Số đội: <select id="teamCount" onchange="drawTeamInputs()"><option value="2">2 đội</option><option value="3">3 đội</option><option value="4" selected>4 đội</option></select></label><div id="teamInputs" class="grid" style="margin:16px 0"></div><div class="row"><button class="primary" onclick="startLocal()">Bắt đầu thi đấu</button><button class="secondary" onclick="home()">Quay lại</button></div></section>
+<section id="onlineSetup" class="panel hidden"><h2>📱 Phòng kho báu trực tuyến</h2><div class="grid"><div><h3>Giáo viên</h3><button class="primary" onclick="createRoom()">Tạo phòng mới</button><p class="muted">Mở trên máy giáo viên và giữ trang này trong suốt cuộc chơi.</p></div><div><h3>Học sinh / Nhóm</h3><input id="joinCode" maxlength="6" placeholder="Mã phòng 6 ký tự"><br><br><input id="joinName" maxlength="22" placeholder="Tên nhóm"><br><br><button class="primary" onclick="joinRoom()">Tham gia phòng</button></div></div><p id="networkStatus" class="notice">Kết nối sử dụng PeerJS (máy chủ tín hiệu công cộng). Cần Internet; không cần tài khoản. Mỗi nhóm dùng một thiết bị, không tải lại trang trong lúc chơi. Mạng trường học có thể chặn kết nối.</p><button class="secondary" onclick="home()">Quay lại</button></section>
+<section id="lobby" class="panel hidden"><h2>🏕️ Sảnh chờ</h2><p id="roomLabel"></p><div id="lobbyTeams"></div><div class="row"><button id="hostStart" class="primary hidden" onclick="startOnlineGame()">Bắt đầu hành trình</button><button class="secondary" onclick="home()">Thoát phòng</button></div></section>
+<section id="game" class="panel hidden">
+<div class="row" style="justify-content:space-between"><span id="modeLabel" class="tag"></span><span id="counter" class="tag"></span><span id="points" class="tag"></span></div>
+<div id="scoreboard" class="scoreboard"></div><div class="steps" id="steps"></div>
+<div id="adventureMap" class="adventure-map" aria-label="Bản đồ hành trình gồm năm cửa ải"></div>
+<p id="mapHint" class="map-legend">🗺️ Chạm vào địa điểm phát sáng trên bản đồ để mở thử thách. Hoàn thành cửa ải để mở đường tiếp theo.</p>
+<div id="challengeArea" class="challenge-area hidden"><div id="graphic"></div><div id="question" class="question"></div><div id="answers" class="answers"></div><div id="feedback" class="feedback hidden"></div></div>
+<div class="row" style="margin-top:16px"><button id="nextBtn" class="primary hidden" onclick="nextQuestion()">Tiếp tục ➜</button><button class="secondary" onclick="home()">Trang chủ</button></div>
+</section>
+<section id="result" class="panel hidden"><div class="spark">🏆💎🎉</div><h2 style="text-align:center">KHO BÁU ĐÃ ĐƯỢC GIẢI MÃ!</h2><div id="results"></div><div class="row" style="justify-content:center;margin-top:20px"><button class="primary" onclick="home()">Chơi lại</button><button class="secondary" onclick="window.print()">In kết quả</button></div></section>
+<footer class="foot">© Học liệu giáo dục • Thiết kế: Thầy Nguyễn Đức Cường • HTML5, Arial • Không thu thập dữ liệu cá nhân</footer>
+</div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const QUESTIONS=[
+{stage:0,q:"Trục nằm ngang (trục hoành) trên đồ thị quãng đường – thời gian thường biểu diễn đại lượng nào?",a:["Thời gian","Quãng đường","Tốc độ","Khối lượng"],ok:0,ex:"Trục hoành biểu diễn thời gian, thường kí hiệu t."},
+{stage:0,q:"Trục thẳng đứng (trục tung) trên đồ thị quãng đường – thời gian biểu diễn đại lượng nào?",a:["Nhiệt độ","Thời gian","Quãng đường","Lực"],ok:2,ex:"Trục tung biểu diễn quãng đường, thường kí hiệu s."},
+{stage:0,q:"Nếu trục thời gian ghi đơn vị phút, quãng đường ghi đơn vị mét, tốc độ tính từ đồ thị có đơn vị nào?",a:["m/phút","m/s","km/h","phút/m"],ok:0,ex:"Đơn vị tốc độ là đơn vị quãng đường chia đơn vị thời gian."},
+{stage:1,q:"Đồ thị đi qua điểm (t = 2 h; s = 80 km). Sau 2 giờ, vật đi được bao nhiêu?",a:["2 km","40 km","80 km","160 km"],ok:2,ex:"Tung độ của điểm cho biết quãng đường tại thời điểm tương ứng.",pts:[[0,0],[2,80],[3,120]],unitT:"h",unitS:"km"},
+{stage:1,q:"Đồ thị có điểm (t = 3 s; s = 15 m). Vật đi được 15 m sau bao lâu?",a:["3 s","5 s","12 s","15 s"],ok:0,ex:"Hoành độ của điểm tương ứng với s = 15 m là t = 3 s.",pts:[[0,0],[3,15],[4,20]],unitT:"s",unitS:"m"},
+{stage:1,q:"Từ đồ thị đi qua (0;0) và (4 h; 120 km), tại t = 4 h, s bằng bao nhiêu?",a:["30 km","60 km","120 km","480 km"],ok:2,ex:"Đọc tung độ của điểm trên đồ thị: s = 120 km.",pts:[[0,0],[2,60],[4,120]],unitT:"h",unitS:"km"},
+{stage:2,q:"Vật đi được 100 m trong 20 s. Tốc độ của vật là bao nhiêu?",a:["2 m/s","5 m/s","20 m/s","80 m/s"],ok:1,ex:"v = s/t = 100/20 = 5 m/s.",pts:[[0,0],[10,50],[20,100]],unitT:"s",unitS:"m"},
+{stage:2,q:"Đồ thị đi qua (0;0) và (3 h; 90 km). Tốc độ của vật là bao nhiêu?",a:["30 km/h","60 km/h","90 km/h","270 km/h"],ok:0,ex:"v = 90/3 = 30 km/h.",pts:[[0,0],[1,30],[3,90]],unitT:"h",unitS:"km"},
+{stage:2,q:"Một người đi được 24 km sau 2 h. Tốc độ là bao nhiêu?",a:["48 km/h","22 km/h","12 km/h","8 km/h"],ok:2,ex:"v = 24/2 = 12 km/h.",pts:[[0,0],[1,12],[2,24]],unitT:"h",unitS:"km"},
+{stage:3,q:"Đoạn đồ thị nằm ngang từ t = 2 h đến t = 3 h cho biết điều gì?",a:["Vật tăng tốc","Vật đứng yên","Vật đi lùi","Vật đi nhanh hơn"],ok:1,ex:"Quãng đường không đổi theo thời gian nên vật đứng yên.",pts:[[0,0],[2,40],[3,40],[4,60]],unitT:"h",unitS:"km"},
+{stage:3,q:"Trong đồ thị quãng đường – thời gian, đoạn thẳng nào biểu thị tốc độ lớn hơn?",a:["Đoạn dốc hơn","Đoạn nằm ngang","Đoạn ít dốc hơn","Các đoạn đều bằng nhau"],ok:0,ex:"Trên cùng hệ trục và cùng tỉ lệ, độ dốc lớn hơn ứng với tốc độ lớn hơn."},
+{stage:3,q:"Hai vật có đồ thị là hai đường thẳng qua gốc tọa độ. Đường A dốc hơn đường B. Kết luận nào đúng?",a:["A chậm hơn B","A đứng yên","A nhanh hơn B","Không thể so sánh"],ok:2,ex:"Cùng hệ trục và cùng tỉ lệ, đường dốc hơn có tốc độ lớn hơn."},
+{stage:4,q:"Một người đi 40 km trong 2 h rồi nghỉ 1 h, sau đó đi thêm 20 km trong 1 h. Tốc độ trung bình cả hành trình là bao nhiêu?",a:["15 km/h","20 km/h","30 km/h","60 km/h"],ok:0,ex:"Tổng quãng đường 60 km; tổng thời gian kể cả nghỉ 4 h. vtb = 60/4 = 15 km/h.",pts:[[0,0],[2,40],[3,40],[4,60]],unitT:"h",unitS:"km"},
+{stage:4,q:"Một vật đi 30 m trong 5 s, đứng yên 5 s, rồi đi thêm 30 m trong 5 s. Tốc độ trung bình trong 15 s là bao nhiêu?",a:["2 m/s","4 m/s","6 m/s","12 m/s"],ok:1,ex:"Tổng quãng đường 60 m, tổng thời gian 15 s. vtb = 60/15 = 4 m/s.",pts:[[0,0],[5,30],[10,30],[15,60]],unitT:"s",unitS:"m"},
+{stage:4,q:"Từ đồ thị: 0–1 h đi 20 km; 1–2 h đứng yên; 2–3 h đi thêm 40 km. Tốc độ trung bình trong 3 h là bao nhiêu?",a:["60 km/h","40 km/h","30 km/h","20 km/h"],ok:3,ex:"Tổng quãng đường 20 + 40 = 60 km; vtb = 60/3 = 20 km/h.",pts:[[0,0],[1,20],[2,20],[3,60]],unitT:"h",unitS:"km"}
+];
+const STAGES=["Bản đồ","Chìa khóa","Mật mã tốc độ","Mê cung","Rương kho báu"];
+let state={mode:"solo",stage:0,round:0,teams:[],active:0,answered:false,selected:[],online:false,host:false,room:"",peer:null,conns:[],conn:null,onlineAnswers:{},session:0};
+function show(id){["home","localSetup","onlineSetup","lobby","game","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id));}
+function home(){if(state.peer){try{state.peer.destroy()}catch(e){}}state={mode:"solo",stage:0,round:0,teams:[],active:0,answered:false,selected:[],online:false,host:false,room:"",peer:null,conns:[],conn:null,onlineAnswers:{},session:0};show("home")}
+function setupLocal(){drawTeamInputs();show("localSetup")}
+function drawTeamInputs(){let n=Number($("teamCount").value);$("teamInputs").innerHTML=Array.from({length:n},(_,i)=>`<label>Đội ${i+1}<br><input id="t${i}" maxlength="22" value="Đội ${i+1}"></label>`).join("")}
+function startSolo(){state.mode="solo";state.teams=[{name:"Nhà thám hiểm",score:0}];begin();}
+function startLocal(){state.mode="local";state.teams=Array.from({length:Number($("teamCount").value)},(_,i)=>({name:$("t"+i).value.trim()||`Đội ${i+1}`,score:0}));begin();}
+function begin(){state.stage=0;state.round=0;state.active=0;state.selected=pick();state.answered=false;show("game");render();}
+function pick(){return STAGES.map((_,i)=>{let pool=QUESTIONS.map((q,j)=>({q,j})).filter(x=>x.q.stage===i);return pool[Math.floor(Math.random()*pool.length)].j;})}
+function graph(q){if(!q.pts)return "";let p=q.pts,maxX=Math.max(...p.map(x=>x[0])),maxY=Math.max(...p.map(x=>x[1])),x=v=>60+v/maxX*440,y=v=>220-v/maxY*170;let path=p.map((v,i)=>(i?"L":"M")+x(v[0])+","+y(v[1])).join(" ");let points=p.map(v=>`<circle cx="${x(v[0])}" cy="${y(v[1])}" r="5" fill="#e87d3e"/>`).join("");let xt=p.map(v=>`<text x="${x(v[0])}" y="245" text-anchor="middle" font-size="13" fill="#1a3853">${v[0]}</text>`).join("");let yt=p.map(v=>`<text x="48" y="${y(v[1])+5}" text-anchor="end" font-size="13" fill="#1a3853">${v[1]}</text>`).join("");return `<svg class="chart" viewBox="0 0 550 275" role="img" aria-label="Đồ thị quãng đường theo thời gian"><line x1="60" y1="220" x2="520" y2="220" stroke="#24485f" stroke-width="2"/><line x1="60" y1="220" x2="60" y2="25" stroke="#24485f" stroke-width="2"/><path d="${path}" stroke="#1776c0" stroke-width="4" fill="none"/>${points}${xt}${yt}<text x="410" y="267" font-size="15" fill="#1a3853">Thời gian (${q.unitT})</text><text x="64" y="18" font-size="15" fill="#1a3853">Quãng đường (${q.unitS})</text></svg>`}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+const MAP_EMOJIS=["🧭","🗝️","📜","🌋","💎"];
+const STAGE_NAMES=["Rừng bí ẩn","Dòng sông thử thách","Đền cổ mật mã","Hang động hiểm nguy","Kho báu hoàng kim"];
+function forestTree(x,y,k=1){return `<g transform="translate(${x} ${y}) scale(${k})"><ellipse cx="0" cy="6" rx="18" ry="7" fill="#102d2c" opacity=".3"/><rect x="-5" y="-42" width="10" height="45" rx="3" fill="#795039"/><path d="M0 -102 L-32 -43 H32Z" fill="#155b40" stroke="#104932" stroke-width="2"/><path d="M0 -79 L-36 -21 H36Z" fill="#1d8054" stroke="#145e42" stroke-width="2"/><path d="M0 -55 L-40 -1 H40Z" fill="#299562" stroke="#1b704a" stroke-width="2"/><path d="M-9 -58 L-3 -66 L5 -56" fill="none" stroke="#8dd09a" stroke-width="3" opacity=".5"/></g>`}
+function renderAdventureMap(){
+ const i=state.stage;
+ const trees=[[40,345,.8],[83,290,1.1],[120,365,.75],[155,280,1.05],[195,350,.85],[245,315,.6],[285,350,.7],[28,200,.65],[150,180,.65]];
+ const coins=[[785,310],[812,292],[842,316],[873,297],[903,326],[933,296],[953,347],[807,360],[863,363],[917,370],[763,352],[960,270]];
+ const scene=`<svg class="world-art" viewBox="0 0 1000 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#6bb3ce"/><stop offset=".52" stop-color="#b0d5b6"/><stop offset="1" stop-color="#d1ba77"/></linearGradient><linearGradient id="land" x2="0" y2="1"><stop stop-color="#7eb16d"/><stop offset="1" stop-color="#326d4b"/></linearGradient><linearGradient id="water" x2="0" y2="1"><stop stop-color="#83e3ed"/><stop offset="1" stop-color="#176a9b"/></linearGradient><linearGradient id="gold" x2="0" y2="1"><stop stop-color="#fff2a0"/><stop offset=".5" stop-color="#ffc52b"/><stop offset="1" stop-color="#b56a10"/></linearGradient><radialGradient id="glow"><stop stop-color="#ffe992" stop-opacity=".95"/><stop offset="1" stop-color="#ffdd44" stop-opacity="0"/></radialGradient><filter id="softglow"><feGaussianBlur stdDeviation="8"/></filter></defs>
+ <rect width="1000" height="480" fill="url(#sky)"/>
+ <circle cx="870" cy="70" r="45" fill="#fff4c2" opacity=".85"/>
+ <path d="M0 200 Q90 140 170 190 T330 185 T500 165 T710 178 T1000 150 V480 H0Z" fill="#67977d"/>
+ <path d="M0 255 Q125 200 245 235 T500 217 T760 228 T1000 200 V480 H0Z" fill="url(#land)"/>
+ <path d="M0 400 Q210 345 350 380 T620 350 T1000 382 V480 H0Z" fill="#4e8a5d"/>
+ <path d="M295 480 Q280 380 355 320 Q425 270 393 208 Q365 140 420 115 L515 115 Q460 190 500 250 Q525 310 450 375 Q395 435 450 480Z" fill="url(#water)" stroke="#c3eee7" stroke-width="7"/>
+ <path d="M340 475 Q322 400 393 327 Q465 265 439 220" fill="none" stroke="#c3f7fc" stroke-width="5" opacity=".65" stroke-dasharray="24 17"/>
+ <path d="M0 375 Q125 325 240 385 Q315 417 350 365" fill="none" stroke="#b9a16b" stroke-width="18" stroke-linecap="round" stroke-dasharray="4 14"/>
+ <path d="M485 375 Q570 330 635 370 T775 350" fill="none" stroke="#c4a26b" stroke-width="16" stroke-linecap="round" stroke-dasharray="4 13"/>
+ ${trees.map(v=>forestTree(...v)).join("")}
+ <g transform="translate(315 340)"><path d="M-25 -6 L45 -6 L25 8 L-12 8Z" fill="#9a5e33" stroke="#593b26" stroke-width="3"/><path d="M5 -45 V-5 M5 -43 L35 -10 H5Z" stroke="#6b4930" stroke-width="3" fill="#f4e8c3"/></g>
+ <g transform="translate(600 270)"><path d="M-84 20 L-70 -32 L70 -32 L84 20Z" fill="#a68d68" stroke="#5c5146" stroke-width="5"/><path d="M-74 -32 L0 -105 L74 -32Z" fill="#a88956" stroke="#6b593d" stroke-width="5"/><rect x="-45" y="-23" width="90" height="44" fill="#c6b083"/><rect x="-20" y="-17" width="40" height="38" rx="15" fill="#453b3b"/><path d="M-60 -26 V18 M60 -26 V18" stroke="#5c5146" stroke-width="11"/><circle cx="0" cy="-60" r="12" fill="#d7c184"/></g>
+ <g transform="translate(765 250)"><path d="M-93 125 Q-80 -10 -10 -75 Q65 -130 128 -40 L160 125Z" fill="#655c68" stroke="#484451" stroke-width="7"/><path d="M-35 125 Q-58 0 17 -8 Q83 -4 95 125Z" fill="#191e30"/><path d="M-88 112 L-58 45 L-35 116 M120 105 L141 55 L161 117" fill="#88818a"/><path d="M-20 -30 L0 -62 L24 -31" stroke="#a99da7" stroke-width="5" fill="none"/></g>
+ <g transform="translate(890 375)"><ellipse cx="0" cy="25" rx="116" ry="45" fill="#f6cf59" opacity=".35"/><ellipse cx="0" cy="0" rx="140" ry="108" fill="url(#glow)"/>
+ ${coins.map(([x,y])=>`<g transform="translate(${x-890} ${y-375})"><ellipse cx="0" cy="0" rx="16" ry="8" fill="url(#gold)" stroke="#b77b16" stroke-width="2"/><path d="M-15 -3 Q0 6 15 -3" fill="none" stroke="#fff0a6" stroke-width="2"/></g>`).join("")}
+ <path d="M-52 -18 L50 -18 L61 28 L-61 28Z" fill="#7d4524" stroke="#4b2a21" stroke-width="5"/><rect x="-55" y="-18" width="110" height="18" fill="#f8c43e" stroke="#a87518" stroke-width="3"/><path d="M-60 -22 Q-58 -82 0 -89 Q58 -82 60 -22Z" fill="#995a32" stroke="#513126" stroke-width="5"/><path d="M-51 -27 Q-47 -67 0 -73 Q47 -67 51 -27Z" fill="#e9b53c"/><rect x="-13" y="-19" width="26" height="35" rx="4" fill="url(#gold)" stroke="#a96d16" stroke-width="3"/><circle cx="0" cy="-3" r="5" fill="#62421e"/>
+ <path d="M-40 -90 L-27 -118 L-15 -89 M30 -91 L48 -126 L55 -89" fill="#fff4a1" opacity=".8"/>
+ </g>
+ <g fill="#ffec9e"><path d="M860 200 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5Z"/><path d="M969 255 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3Z"/><circle cx="823" cy="252" r="4"/></g>
+ </svg>`;
+ $("adventureMap").innerHTML=scene+`<div class="map-heading">🗺️ HÀNH TRÌNH THÁM HIỂM • ${i+1}/5 CHẶNG</div>
+ ${STAGE_NAMES.map((name,j)=>`<button class="map-node n${j} ${j<i?"complete":j===i?"active":"locked"}" ${j!==i?"disabled":""} onclick="openStage()" aria-label="${j<i?"Đã vượt qua":j===i?"Khám phá":"Chưa mở"} chặng ${j+1}: ${name}"><span class="emoji">${j<i?"⭐":j>i?"🔒":MAP_EMOJIS[j]}</span><span class="node-name">${j+1}. ${name}</span></button>`).join("")}
+ <div class="treasure-status">🪙 Vàng tìm được: <b>${i*20}</b> / 100 <span>•</span> 🔑 Chìa khóa: <b>${i}</b> / 5</div>`;
+}
+
+function openStage(){
+ if(state.stage>=5)return;
+ $("challengeArea").classList.remove("hidden");
+ $("challengeArea").classList.add("map-burst");
+ $("mapHint").textContent=`✨ Đã khám phá: ${STAGES[state.stage]}. Trả lời câu hỏi để nhận chìa khóa!`;
+ $("challengeArea").scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function closeStage(){
+ $("challengeArea").classList.add("hidden");
+ $("challengeArea").classList.remove("map-burst");
+ $("mapHint").textContent=`🗺️ Đã đến cửa ải ${state.stage+1}. Chạm vào địa điểm phát sáng trên bản đồ để bắt đầu!`;
+}
+function render(){renderAdventureMap();closeStage();let q=QUESTIONS[state.selected[state.stage]],team=state.teams[state.active];$("modeLabel").textContent=state.mode==="solo"?"🧭 Cá nhân":state.mode==="local"?"👥 Thi đấu nhóm":"📱 Trực tuyến";$("counter").textContent=`Cửa ải ${state.stage+1}/5`;$("points").textContent=team?`${team.name}: ${team.score} điểm`:"Đang chờ";$("steps").innerHTML=STAGES.map((s,i)=>`<div class="step ${i<state.stage?"done":i===state.stage?"current":""}">${i<state.stage?"✓":i+1}. ${s}</div>`).join("");$("scoreboard").innerHTML=state.teams.map((t,i)=>`<div class="team ${i===state.active?"active":""}"><strong>${esc(t.name)}</strong>💎 ${t.score} điểm</div>`).join("");$("graphic").innerHTML=graph(q);$("question").textContent=(state.mode==="local"?`${team.name} • `:"")+q.q;$("answers").innerHTML=q.a.map((a,i)=>`<button class="answer" id="ans${i}" onclick="answer(${i})">${String.fromCharCode(65+i)}. ${esc(a)}</button>`).join("");$("feedback").classList.add("hidden");$("nextBtn").classList.add("hidden");state.answered=false;if(state.mode==="online"&&!state.host){$("answers").querySelectorAll("button").forEach(b=>b.disabled=false)}}
+function markAnswer(choice){let q=QUESTIONS[state.selected[state.stage]];Array.from($("answers").children).forEach((b,i)=>{b.disabled=true;if(i===q.ok)b.classList.add("correct");if(i===choice&&i!==q.ok)b.classList.add("wrong")});$("feedback").classList.remove("hidden");$("feedback").textContent=(choice===q.ok?"✅ Chính xác! ":"❌ Chưa chính xác. ")+q.ex}
+function answer(i){if(state.answered)return;if(state.mode==="online"){onlineAnswer(i);return}state.answered=true;let q=QUESTIONS[state.selected[state.stage]];if(i===q.ok)state.teams[state.active].score+=20;markAnswer(i);$("nextBtn").classList.remove("hidden");$("points").textContent=`${state.teams[state.active].name}: ${state.teams[state.active].score} điểm`;$("scoreboard").innerHTML=state.teams.map((t,j)=>`<div class="team ${j===state.active?"active":""}"><strong>${esc(t.name)}</strong>💎 ${t.score} điểm</div>`).join("")}
+function nextQuestion(){if(state.mode==="local"&&state.active<state.teams.length-1){state.active++;render();return}state.active=0;state.stage++;if(state.stage>=5){finish();return}render()}
+function finish(){show("result");let sorted=[...state.teams].sort((a,b)=>b.score-a.score);$("results").innerHTML=sorted.map((t,i)=>`<div class="leader">${i===0?"🥇":i===1?"🥈":i===2?"🥉":"🏅"} <b>${esc(t.name)}</b> — ${t.score} điểm</div>`).join("")+"<p class='muted' style='text-align:center'>Chúc mừng các nhà thám hiểm đã hoàn thành 5 cửa ải kiến thức!</p>"}
+function showOnline(){state.mode="online";show("onlineSetup")}
+function setStatus(s){$("networkStatus").textContent=s}
+function loadPeer(){return new Promise((resolve,reject)=>{if(window.Peer)return resolve();let sc=document.createElement("script");sc.src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js";sc.onload=resolve;sc.onerror=()=>reject(new Error("Không tải được thư viện kết nối PeerJS."));document.head.appendChild(sc)})}
+function roomCode(){return Math.random().toString(36).slice(2,8).toUpperCase()}
+async function createRoom(){
+ setStatus("Đang tạo phòng...");
+ try {
+  await loadPeer();state.host=true;state.room=roomCode();state.teams=[];state.conns=[];
+  state.peer=new Peer("ndc-kb10-"+state.room,{debug:0});
+  state.peer.on("open",()=>{show("lobby");$("roomLabel").innerHTML=`Mã phòng: <span class="code">${state.room}</span><br>Học sinh nhập mã này trên Google Sites.`;renderLobby()});
+  state.peer.on("connection",c=>{
+   c.on("data",d=>hostMessage(c,d));
+   c.on("close",()=>{
+    let k=state.conns.findIndex(x=>x.conn===c);
+    if(k>=0&&!state.session){state.conns.splice(k,1);state.teams.splice(k,1);renderLobby()}
+   });
+  });
+  state.peer.on("error",e=>setStatus("Không tạo được phòng: "+e.message));
+ } catch(e){setStatus(e.message)}
+}
+function hostMessage(c,d){if(!d||typeof d!=="object")return;if(d.type==="join"&&!state.session){if(state.conns.length>=4){c.send({type:"error",message:"Phòng tối đa 4 nhóm."});return}if(state.conns.some(x=>x.conn===c))return;let name=String(d.name||"Nhóm").trim().slice(0,22);state.conns.push({conn:c,name});state.teams.push({name,score:0});c.send({type:"joined",name,room:state.room});renderLobby();broadcast({type:"lobby",teams:state.teams});}else if(d.type==="answer"&&state.session&&state.stage<5){let idx=state.conns.findIndex(x=>x.conn===c);if(idx<0||state.onlineAnswers[idx]!==undefined||d.stage!==state.stage)return;let choice=Number(d.choice);if(!Number.isInteger(choice)||choice<0||choice>3)return;state.onlineAnswers[idx]=choice;if(choice===QUESTIONS[state.selected[state.stage]].ok)state.teams[idx].score+=20;broadcast({type:"progress",teams:state.teams,answered:Object.keys(state.onlineAnswers).length,total:state.teams.length});if(Object.keys(state.onlineAnswers).length>=state.teams.length)endOnlineRound();}}
+function renderLobby(){$("lobbyTeams").innerHTML=state.teams.map(t=>`<div class="leader">🚩 ${esc(t.name)}</div>`).join("")||"<p>Chưa có nhóm tham gia.</p>";$("hostStart").classList.toggle("hidden",!state.host||state.teams.length===0)}
+function broadcast(d){state.conns.forEach(x=>{if(x.conn.open)try{x.conn.send(d)}catch(e){}})}
+function startOnlineGame(){if(!state.host||!state.teams.length)return;state.session=1;state.stage=0;state.selected=pick();show("game");startOnlineRound()}
+function startOnlineRound(){state.onlineAnswers={};state.active=0;render();$("answers").innerHTML="<p class='notice'>⏳ Đang chờ các nhóm gửi đáp án từ điện thoại...</p>";broadcast({type:"question",stage:state.stage,selected:state.selected,teams:state.teams});}
+function endOnlineRound(){openStage();let q=QUESTIONS[state.selected[state.stage]];broadcast({type:"reveal",stage:state.stage,correct:q.ok,ex:q.ex,teams:state.teams});$("feedback").classList.remove("hidden");$("feedback").textContent=`🔑 Đáp án: ${String.fromCharCode(65+q.ok)}. ${q.a[q.ok]}. ${q.ex}`;$("nextBtn").classList.remove("hidden");$("scoreboard").innerHTML=state.teams.map(t=>`<div class="team"><strong>${esc(t.name)}</strong>💎 ${t.score} điểm</div>`).join("")}
+async function joinRoom(){let code=$("joinCode").value.trim().toUpperCase(),name=$("joinName").value.trim();if(!/^[A-Z0-9]{6}$/.test(code)||!name){setStatus("Nhập mã phòng gồm 6 ký tự và tên nhóm.");return}setStatus("Đang kết nối phòng...");try{await loadPeer();state.host=false;state.room=code;state.peer=new Peer();state.peer.on("open",()=>{state.conn=state.peer.connect("ndc-kb10-"+code,{reliable:true});state.conn.on("open",()=>state.conn.send({type:"join",name}));state.conn.on("data",clientMessage);state.conn.on("error",e=>setStatus("Lỗi kết nối: "+e.message));state.conn.on("close",()=>{if(state.stage<5)alert("Mất kết nối với phòng. Vui lòng quay lại và tham gia lại.")})});state.peer.on("error",e=>setStatus("Không kết nối được: "+e.message))}catch(e){setStatus(e.message)}}
+function clientMessage(d){if(d.type==="error"){setStatus(d.message);return}if(d.type==="joined"){show("lobby");$("roomLabel").textContent=`Đã vào phòng ${d.room} với tên ${d.name}. Chờ giáo viên bắt đầu.`;$("hostStart").classList.add("hidden")}if(d.type==="lobby"){state.teams=d.teams;renderLobby()}if(d.type==="question"){state.mode="online";state.session=1;state.selected=d.selected;state.stage=d.stage;state.teams=d.teams;state.active=state.teams.findIndex(t=>t.name===$("joinName").value.trim());if(state.active<0)state.active=0;show("game");render()}if(d.type==="progress"){$("points").textContent=`${d.answered}/${d.total} nhóm đã trả lời`;$("scoreboard").innerHTML=d.teams.map(t=>`<div class="team"><strong>${esc(t.name)}</strong>💎 ${t.score} điểm</div>`).join("")}if(d.type==="reveal"){openStage();state.teams=d.teams;let q=QUESTIONS[state.selected[state.stage]];Array.from($("answers").children).forEach((b,i)=>{b.disabled=true;if(i===d.correct)b.classList.add("correct")});$("feedback").classList.remove("hidden");$("feedback").textContent=`🔑 Đáp án: ${String.fromCharCode(65+d.correct)}. ${q.a[d.correct]}. ${d.ex}`}if(d.type==="finish"){state.teams=d.teams;finish()}}
+function onlineAnswer(i){if(state.host||state.answered)return;state.answered=true;let q=QUESTIONS[state.selected[state.stage]];Array.from($("answers").children).forEach((b,j)=>{b.disabled=true;if(j===i)b.style.borderColor="#ffd66c"});$("feedback").classList.remove("hidden");$("feedback").textContent="⏳ Đã gửi đáp án. Đợi các nhóm còn lại...";if(state.conn&&state.conn.open)state.conn.send({type:"answer",stage:state.stage,choice:i})}
+const oldNext=nextQuestion;nextQuestion=function(){if(state.mode!=="online")return oldNext();if(!state.host)return;state.stage++;if(state.stage>=5){broadcast({type:"finish",teams:state.teams});finish();return}startOnlineRound()};
+window.addEventListener("beforeunload",()=>{if(state.peer)state.peer.destroy()});
+</script>
+</body></html>
